@@ -9,9 +9,9 @@ user → **PARSER** → folder path + category (extension / type / date)
 
 folder path → **FOLDER READER** → file list
 
-file list + category → **CATEGORY DATA READER** → file categories list
+file list + category → **CATEGORY DATA READER (planner)** → file categories list
 
-file list + file categories list → **PLANNER** → organizer plan
+file list + file categories list → **MAPPER (planner)** → organizer plan
 
 organizer plan → **CONSOLE I/O (main)** → confirm
 
@@ -23,12 +23,12 @@ organizer plan + confirm → **FILE MOVER** → organized files
 ## To-Do
 
 #### FUNDAMENTALS (0.1)
--[ ] PLANNER 
-  -  IN:  list of file names, list of extensions
+-[x] FILE MAPPING
+  -  IN:  list of file names, set of extensions
   -  OUT: dict: {extension: (list of files)}
 -[ ] CATEGORY DATA READER
   - IN: list of file names
-  - OUT: list of extensions
+  - OUT: set of extensions
 -[ ] CONSOLE I/O
     - OUT: readable organizing plan
     - IN: confirmation
