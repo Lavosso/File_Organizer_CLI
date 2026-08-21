@@ -1,15 +1,8 @@
 from pathlib import Path
 
-
-def read_category(files: list, category: str = "extension") -> set:
-    category_list = set()
-    file_category = ""
-    for file in files:
-        if category == "extension":
-            file_category = Path(file).suffix
-        category_list.add(file_category)
-    return category_list
-
+def list_extensions(files: list) -> set:
+    extensions_list = {Path(file).suffix for file in files}
+    return extensions_list
 
 def map_files(files: list, file_types: set) -> dict[str, list]:
     mapped_files: dict = {datatype: [] for datatype in file_types}

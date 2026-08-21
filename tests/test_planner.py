@@ -22,7 +22,7 @@ def test_map_files():
     assert correct_result == planner.map_files(data_files, data_file_types)
 
 
-def test_read_category():
+def test_list_extensions():
     data_files = [
         "outro.mp3",
         "regulamin_sklepu.pdf",
@@ -33,4 +33,4 @@ def test_read_category():
         "scraper.py",
     ]
     data_file_types = {".txt", ".jpg", ".pdf", ".py", ".mp3"}
-    assert data_file_types == planner.read_category(data_files)
+    assert data_file_types == planner.list_extensions(data_files)
