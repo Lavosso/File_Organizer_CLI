@@ -36,7 +36,7 @@ organizer plan + confirm → **FILE MOVER** → organized files
 -[x] CATEGORY DATA READER
   - IN: list of file names
   - OUT: set of extensions
--[ ] CONSOLE I/O
+-[x] CONSOLE I/O
     - OUT: readable organizing plan
     - IN: confirmation
 -[ ] FOLDER READER
