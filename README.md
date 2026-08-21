@@ -26,7 +26,7 @@ organizer plan + confirm → **FILE MOVER** → organized files
 -[x] FILE MAPPING
   -  IN:  list of file names, set of extensions
   -  OUT: dict: {extension: (list of files)}
--[ ] CATEGORY DATA READER
+-[x] CATEGORY DATA READER
   - IN: list of file names
   - OUT: set of extensions
 -[ ] CONSOLE I/O
