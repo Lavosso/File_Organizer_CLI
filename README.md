@@ -8,7 +8,7 @@ Nothing more here yet :)
 `ruff check .`
 `ruff format .`
 `mypy src`
-`pytest -q`
+`pytest -q -s`
 
 ## Concept
 

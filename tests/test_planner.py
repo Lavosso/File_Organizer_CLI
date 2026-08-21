@@ -19,7 +19,9 @@ def test_map_files_to_categories():
         ".py": ["test_main.py", "scraper.py"],
         ".mp3": ["outro.mp3"],
     }
-    assert correct_result == planner.map_files_to_categories(data_files, data_file_types)
+    assert correct_result == planner.map_files_to_categories(
+        data_files, data_file_types
+    )
 
 
 def test_list_extensions():
