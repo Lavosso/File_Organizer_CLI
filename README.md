@@ -3,6 +3,13 @@ Python file organizer - organize messy folders through grouping by date, extensi
 
 Nothing more here yet :)
 
+## Quality control
+
+`ruff check .`
+`ruff format .`
+`mypy src`
+`pytest -q`
+
 ## Concept
 
 user → **PARSER** → folder path + category (extension / type / date)
