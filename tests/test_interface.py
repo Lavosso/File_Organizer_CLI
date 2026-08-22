@@ -1,4 +1,4 @@
-from src import interface
+from src import cli
 
 
 def test_print_and_confirm_plan():
@@ -9,5 +9,5 @@ def test_print_and_confirm_plan():
         ".py": ["test_main.py", "scraper.py"],
         ".mp3": ["outro.mp3"],
     }
-    interface.print_and_confirm_plan(plan)
+    cli.print_plan(plan)
     assert True

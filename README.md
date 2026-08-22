@@ -46,9 +46,9 @@ organizer plan + confirm → **FILE MOVER** → organized files
   - IN: directory path
   - OUT: list of file names in directory / list of directories in directory
 
--[ ] PARSER (takes path of directory to organize)
+-[x] PARSER (takes path of directory to organize)
 
--[ ] DIRECTORY CREATOR (takes extension and directory)
+-[ ] DIRECTORY CREATOR (takes extension list and path, creates directories in path)
 
 -[ ] FILES MOVER (takes directory and list of files to move)
 
