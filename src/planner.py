@@ -5,6 +5,7 @@ def list_extensions(files: list) -> set:
     extensions_list = {Path(file).suffix for file in files}
     return extensions_list
 
+
 def map_files_to_categories(files: list, categories: set) -> dict[str, list]:
     mapped_files: dict = {category: [] for category in categories}
     for file in files:
