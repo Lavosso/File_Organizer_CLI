@@ -1,7 +1,25 @@
 # File Organizer CLI
 Python file organizer - organize messy folders through grouping by date, extension or file type.
 
-Nothing more here yet :)
+## Installation
+
+```commandline
+mkdir File_Organizer_CLI
+cd File_Organizer_CLI
+git clone https://github.com/Lavosso/File_Organizer_CLI.git
+py -m venv .venv
+.venv\Scripts\Activate.ps1 
+pip install requests
+```
+
+## Launching and features
+
+1. src/cli.py suggest -d (directory) 
+   - returns suggested organizing plan for the directory
+2. src/cli.py organize -d (directory)
+   - prints suggested organizing plan
+   - asks user if to execute the plan
+   - y/n : executes the plan / finishes without making changes
 
 ## Quality control
 
@@ -53,16 +71,19 @@ organizer plan + confirm → **FILE MOVER** → organized files
 -[x] FILES MOVER (takes directory and list of files to move)
 
 #### FUNCTIONALITIES
--[ ] add "showoff mode" with timestamps between moving
+-[ ] add verification to border situations, such as dir replacing
 
--[ ] add verification to directory creator (user decide what if a folder with name exists)
+-[ ] add more testing
 
--[ ] add verification to file mover (user decide if file exists already in directory)
+-[x] add logging
 
 -[ ] add other categories of grouping (date and file type)
 
--[ ] add testing
+-[ ] add --dry-run
 
--[ ] add --dry-run and check for enough logging
+#### COSMETICS
+-[ ] add "showoff mode" with timestamps between moving
+
+-[ ] add console summary
 
 -[ ] add HTML reporting
