@@ -46,14 +46,18 @@ def create_directories_for_categories(
 
 
 def move_files_to_category_dir(
-    files: list, category: str, verbose_mode: bool = False, dry_run: bool = False
+    files: list,
+    category: str,
+    directory: Path,
+    verbose_mode: bool = False,
+    dry_run: bool = False,
 ) -> None:
-    files_folder = Path()
-    if not dry_run:
-        files_folder = Path(category).parent
     if verbose_mode or dry_run:
         logger.setLevel(logging.DEBUG)
     for file in files:
         if not dry_run:
-            os.rename(files_folder / file, category + "/" + file)
+            os.rename(
+                str(directory) + "/" + file,
+                str(directory) + "/" + category + "/" + file,
+            )
         logger.debug(f"successfully moved file {file} to directory {category}")

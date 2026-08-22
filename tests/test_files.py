@@ -67,14 +67,14 @@ def test_create_directories_for_categories(tmp_path):
 
 
 def test_move_files_to_category(tmp_path):
-    category = str(tmp_path) + "/.cat1"
-    Path(category).mkdir()
+    category = ".cat1"
+    (tmp_path / category).mkdir()
     file1 = tmp_path / "file1.cat1"
     file2 = tmp_path / "file2.cat1"
     file2.write_text("data")
     file1.write_text("data")
     file_list = ["file1.cat1", "file2.cat1"]
-    files.move_files_to_category_dir(file_list, category=category)
+    files.move_files_to_category_dir(file_list, category=category, directory=tmp_path)
     assert (
         tmp_path.joinpath(".cat1").joinpath("file1.cat1").exists()
         and tmp_path.joinpath(".cat1").joinpath("file2.cat1").exists()

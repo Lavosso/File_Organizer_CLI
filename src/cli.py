@@ -75,7 +75,8 @@ if __name__ == "__main__":
                 )
                 move_files_to_category_dir(
                     file_list,
-                    args.directory + "/" + category,
+                    category,
+                    args.directory,
                     verbose_mode=args.verbose,
                     dry_run=args.dry_run,
                 )

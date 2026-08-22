@@ -19,12 +19,18 @@ pip install requests
    - returns suggested organizing plan for the directory
 2. src/cli.py organize -d (directory)
    - prints suggested organizing plan
-   - asks user if to execute the plan
+   - asks user for confirmation to execute the plan
    - y/n : executes the plan / finishes without making changes
 
 #### Features
-1. --verbose flag makes all scripts change logging level to debug
-2. program checks if a folder with category name already exists, terminates if so 
+1. DEBUG: --verbose flag sets logging level to debug.
+2. SAFETY: program checks if a folder with category
+name already exists, and if so does happen,
+terminates the program before any changes to the files.
+3. CONTROL: --dry-run flag makes the script go 
+through every step of standard organizing, 
+without making any changes to the actual files.
+4. 
 ## Quality control
 
 `ruff check .`
@@ -37,19 +43,19 @@ pip install requests
 
 ## Concept
 
-user → **PARSER (cli)** → folder path
+user → **_PARSER (cli)_** → folder path
 
-folder path → **FOLDER READER (files)** → file list
+folder path → **_FOLDER READER (files)_** → file list
 
-file list → **CATEGORY DATA READER (planner)** → file categories list
+file list → **_CATEGORY DATA READER (planner)_** → file categories list
 
-file list + file categories list → **MAPPER (planner)** → organizer plan
+file list + file categories list → **_MAPPER (planner)_** → organizer plan
 
-organizer plan → **CONSOLE I/O (cli)** → confirm
+organizer plan → **_CONSOLE I/O (cli)_** → confirm
 
-file categories list + confirm → **DIRECTORY CREATOR (files)** → folder creation
+file categories list + confirm → **_DIRECTORY CREATOR (files)_** → folder creation
 
-organizer plan + confirm → **FILE MOVER (files)** → organized files 
+organizer plan + confirm → **_FILE MOVER (files)_** → organized files 
 
 
 ## To-Do
