@@ -80,13 +80,13 @@ organizer plan + confirm → **FILE MOVER (files)** → organized files
 #### FUNCTIONALITIES
 -[x] add verification to border situations, such as dir replacing
 
--[ ] add more testing
+-[x] add more testing
 
 -[x] add logging
 
 -[ ] add other categories of grouping (date and file type)
 
--[ ] add --dry-run
+-[x] add --dry-run
 
 #### COSMETICS
 -[ ] add "showoff mode" with timestamps between moving

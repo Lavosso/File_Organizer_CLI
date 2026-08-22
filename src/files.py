@@ -29,9 +29,9 @@ def list_directories_in_directory(directory: str) -> list:
 
 
 def create_directories_for_categories(
-    categories: set, directory: str, verbose_mode: bool = False
+    categories: set, directory: str, verbose_mode: bool = False, dry_run: bool = False
 ) -> None:
-    if verbose_mode:
+    if verbose_mode or dry_run:
         logger.setLevel(logging.DEBUG)
     for category in categories:
         if os.path.exists(directory + "/" + category):
@@ -40,16 +40,20 @@ def create_directories_for_categories(
             )
             sys.exit()
     for category in categories:
-        os.makedirs(directory + "/" + category)
+        if not dry_run:
+            os.makedirs(directory + "/" + category)
         logger.debug("successfully created directory for category " + category)
 
 
 def move_files_to_category_dir(
-    files: list, directory: str, verbose_mode: bool = False
+    files: list, category: str, verbose_mode: bool = False, dry_run: bool = False
 ) -> None:
-    files_folder = Path(directory).parent
-    if verbose_mode:
+    files_folder = Path()
+    if not dry_run:
+        files_folder = Path(category).parent
+    if verbose_mode or dry_run:
         logger.setLevel(logging.DEBUG)
     for file in files:
-        os.rename(files_folder / file, directory + "/" + file)
-        logger.debug(f"successfully moved file {file} to category {Path(file).suffix}")
+        if not dry_run:
+            os.rename(files_folder / file, category + "/" + file)
+        logger.debug(f"successfully moved file {file} to directory {category}")

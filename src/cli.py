@@ -19,6 +19,11 @@ def create_parser() -> argparse.ArgumentParser:
         help="verbose mode - logging level set to debug",
         action="store_true",
     )
+    created_parser.add_argument(
+        "--dry-run",
+        help="dry run mode - logging level set to debug, no changes will be made",
+        action="store_true",
+    )
     return created_parser
 
 
@@ -40,7 +45,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # verbose mode
-    if args.verbose:
+    if args.verbose or args.dry_run:
         logger.setLevel(logging.DEBUG)
         logger.debug("logging level set to debug")
         logger.debug(args)
@@ -58,7 +63,10 @@ if __name__ == "__main__":
         if input("Do you wish to apply the suggested plan? y/n: ") == "y":
             logger.debug("extensions list sent to directories creator")
             create_directories_for_categories(
-                extensions_set, args.directory, verbose_mode=args.verbose
+                extensions_set,
+                args.directory,
+                verbose_mode=args.verbose,
+                dry_run=args.dry_run,
             )
 
             for category, file_list in mapped_plan.items():
@@ -69,6 +77,7 @@ if __name__ == "__main__":
                     file_list,
                     args.directory + "/" + category,
                     verbose_mode=args.verbose,
+                    dry_run=args.dry_run,
                 )
 
             logger.info("the files have been successfully organized")
