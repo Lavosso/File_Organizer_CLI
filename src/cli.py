@@ -1,7 +1,7 @@
 import argparse
 
-import src.files
-import src.planner
+from .files import *
+from .planner import *
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -17,19 +17,30 @@ def create_parser() -> argparse.ArgumentParser:
 
 def print_plan(plan: dict[str, list]):
     print("suggested plan of organizing:")
-    for category, file_list in plan.items():
-        print(f"---- category: {category} ----")
-        for file in file_list:
+    for plan_category, plan_file_list in plan.items():
+        print(f"---- category: {plan_category} ----")
+        for file in plan_file_list:
             print(f"-> {file}")
         print()
 
 
-parser = create_parser()
-args = parser.parse_args()
-user_file_list = src.files.list_files_in_directory(directory=args.directory)
-extension_list = src.planner.list_extensions(user_file_list)
-mapped_plan = src.planner.map_files_to_categories(user_file_list, extension_list)
-if args.command == "organize":
-    print_plan(mapped_plan)
-if args.command == "suggest":
-    print_plan(mapped_plan)
+if __name__ == "__main__":
+    parser = create_parser()
+    args = parser.parse_args()
+
+    user_file_list = list_files_in_directory(directory=args.directory)
+    categories_set = list_extensions(user_file_list)
+
+    mapped_plan = map_files_to_categories(user_file_list, categories_set)
+
+    if args.command == "organize":
+        print_plan(mapped_plan)
+        if input("Do you wish to apply the suggested plan? y/n: ") == "y":
+            create_directories_for_categories(categories_set, args.directory)
+            for category, file_list in mapped_plan.items():
+                move_files_to_category_dir(file_list, args.directory + "/" + category)
+            print("the files have been successfully organized")
+        else:
+            print("Files organizing has been terminated. No changes will be made")
+    if args.command == "suggest":
+        print_plan(mapped_plan)

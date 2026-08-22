@@ -12,11 +12,11 @@ Nothing more here yet :)
 
 ## Concept
 
-user → **PARSER** → folder path + category (extension / type / date)
+user → **PARSER** → folder path
 
 folder path → **FOLDER READER** → file list
 
-file list + category → **CATEGORY DATA READER (planner)** → file categories list
+file list → **CATEGORY DATA READER (planner)** → file categories list
 
 file list + file categories list → **MAPPER (planner)** → organizer plan
 
@@ -48,11 +48,13 @@ organizer plan + confirm → **FILE MOVER** → organized files
 
 -[x] PARSER (takes path of directory to organize)
 
--[ ] DIRECTORY CREATOR (takes extension list and path, creates directories in path)
+-[x] DIRECTORY CREATOR (takes extension list and path, creates directories in path)
 
--[ ] FILES MOVER (takes directory and list of files to move)
+-[x] FILES MOVER (takes directory and list of files to move)
 
 #### FUNCTIONALITIES
+-[ ] add "showoff mode" with timestamps between moving
+
 -[ ] add verification to directory creator (user decide what if a folder with name exists)
 
 -[ ] add verification to file mover (user decide if file exists already in directory)
