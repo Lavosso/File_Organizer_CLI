@@ -14,6 +14,7 @@ pip install requests
 
 ## Launching and features
 
+#### Lauching
 1. src/cli.py suggest -d (directory) 
    - returns suggested organizing plan for the directory
 2. src/cli.py organize -d (directory)
@@ -21,28 +22,34 @@ pip install requests
    - asks user if to execute the plan
    - y/n : executes the plan / finishes without making changes
 
+#### Features
+1. --verbose flag makes all scripts change logging level to debug
+2. program checks if a folder with category name already exists, terminates if so 
 ## Quality control
 
 `ruff check .`
+
 `ruff format .`
+
 `mypy src`
+
 `pytest -q -s`
 
 ## Concept
 
-user → **PARSER** → folder path
+user → **PARSER (cli)** → folder path
 
-folder path → **FOLDER READER** → file list
+folder path → **FOLDER READER (files)** → file list
 
 file list → **CATEGORY DATA READER (planner)** → file categories list
 
 file list + file categories list → **MAPPER (planner)** → organizer plan
 
-organizer plan → **CONSOLE I/O (main)** → confirm
+organizer plan → **CONSOLE I/O (cli)** → confirm
 
-file categories list + confirm → **DIRECTORY CREATOR** → folder creation
+file categories list + confirm → **DIRECTORY CREATOR (files)** → folder creation
 
-organizer plan + confirm → **FILE MOVER** → organized files 
+organizer plan + confirm → **FILE MOVER (files)** → organized files 
 
 
 ## To-Do
@@ -71,7 +78,7 @@ organizer plan + confirm → **FILE MOVER** → organized files
 -[x] FILES MOVER (takes directory and list of files to move)
 
 #### FUNCTIONALITIES
--[ ] add verification to border situations, such as dir replacing
+-[x] add verification to border situations, such as dir replacing
 
 -[ ] add more testing
 
