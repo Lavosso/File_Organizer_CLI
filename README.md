@@ -42,9 +42,9 @@ organizer plan + confirm → **FILE MOVER** → organized files
     - OUT: readable organizing plan
     - IN: confirmation
 
--[ ] FOLDER READER
+-[x] FOLDER READER
   - IN: directory path
-  - OUT: list of file names in directory
+  - OUT: list of file names in directory / list of directories in directory
 
 -[ ] PARSER (takes path of directory to organize)
 
