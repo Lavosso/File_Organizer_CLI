@@ -30,7 +30,6 @@ terminates the program before any changes to the files.
 3. CONTROL: --dry-run flag makes the script go 
 through every step of standard organizing, 
 without making any changes to the actual files.
-4. 
 ## Quality control
 
 `ruff check .`
@@ -90,7 +89,7 @@ organizer plan + confirm → **_FILE MOVER (files)_** → organized files
 
 -[x] add logging
 
--[ ] add other categories of grouping (date and file type)
+-[ ] add another category of grouping (file type)
 
 -[x] add --dry-run
 
@@ -98,5 +97,7 @@ organizer plan + confirm → **_FILE MOVER (files)_** → organized files
 -[ ] add "showoff mode" with timestamps between moving
 
 -[ ] add console summary
+
+-[ ] add grouping by date of file creation
 
 -[ ] add HTML reporting

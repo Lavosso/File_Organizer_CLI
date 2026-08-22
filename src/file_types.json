@@ -1,0 +1,22 @@
+{
+    ".png": "Images",
+    ".jpg": "Images",
+    ".jpeg": "Images",
+    ".svg": "Images",
+    ".gif": "Images",
+    ".pdf": "Documents",
+    ".docx": "Documents",
+    ".txt": "Documents",
+    ".xlsx": "Documents",
+    ".pptx": "Documents",
+    ".mp3": "Audio",
+    ".wav": "Audio",
+    ".mp4": "Video",
+    ".mov": "Video",
+    ".avi": "Video",
+    ".py": "Code",
+    ".html": "Code",
+    ".json": "Data",
+    ".csv": "Data",
+    ".zip": "Archives"
+}

@@ -61,3 +61,9 @@ def move_files_to_category_dir(
                 str(directory) + "/" + category + "/" + file,
             )
         logger.debug(f"successfully moved file {file} to directory {category}")
+
+
+# def map_files_to_categories(
+#        files_mapped_to_extensions: dict, verbose_mode: bool = False
+# )-> dict[str, list]:
+#    categories = json.load(open("categories.json", "r"))
