@@ -9,7 +9,7 @@ git clone https://github.com/Lavosso/File_Organizer_CLI.git
 cd File_Organizer_CLI
 python3.14 -m venv .venv
 .venv\Scripts\Activate.ps1 
-pip install requests
+pip install -r requirements.txt
 ```
 
 ## Launching and features
