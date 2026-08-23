@@ -1,10 +1,12 @@
 import argparse
 from dataclasses import dataclass
 
+from configure import *
 from files import *
 from planner import *
-from configure import *
+
 logger = logging.getLogger(__name__)
+
 
 @dataclass
 class Statistics:
@@ -12,14 +14,19 @@ class Statistics:
     directories_created: int = 0
     extensions_found: int = 0
     types_found: int = 0
+
     def count_moved_files(self, entire_file_list: list):
         self.files_moved += len(entire_file_list)
+
     def count_created_directories(self, directories_list: list):
         self.directories_created += len(directories_list)
+
     def count_extensions_found(self, extensions_list: list):
         self.extensions_found += len(extensions_list)
+
     def count_types_found(self, types_list: list):
         self.types_found += len(types_list)
+
 
 def create_parser() -> argparse.ArgumentParser:
     created_parser = argparse.ArgumentParser()
@@ -27,7 +34,9 @@ def create_parser() -> argparse.ArgumentParser:
         "-d", "--directory", help="directory to organize or list", type=str
     )
     created_parser.add_argument(
-        "command", help="command to execute", choices=["organize", "suggest", "configure"]
+        "command",
+        help="command to execute",
+        choices=["organize", "suggest", "configure"],
     )
     created_parser.add_argument(
         "--category",
@@ -95,25 +104,29 @@ if __name__ == "__main__":
     if args.command == "organize":
         print_plan(plan=mapped_plan, showoff=args.showoff)
         if input("Do you wish to apply the suggested plan? y/n: ") == "y":
-
             logger.debug("categories list sent to directories creator")
             create_directories_for_categories(
                 categories=list_categories(mapped_plan),
                 directory=args.directory,
                 verbose_mode=args.verbose,
                 dry_run=args.dry_run,
-                showoff=args.showoff
+                showoff=args.showoff,
             )
             # Statistics on amount of extensions and types found, dirs made
             if args.category == "types":
                 this_session_stats.count_types_found(list(list_categories(mapped_plan)))
-                this_session_stats.count_extensions_found(list(list_extensions(user_file_list)))
+                this_session_stats.count_extensions_found(
+                    list(list_extensions(user_file_list))
+                )
             if args.category == "extensions":
-                this_session_stats.count_extensions_found(list(list_categories(mapped_plan)))
-            this_session_stats.count_created_directories(list(list_categories(mapped_plan)))
+                this_session_stats.count_extensions_found(
+                    list(list_categories(mapped_plan))
+                )
+            this_session_stats.count_created_directories(
+                list(list_categories(mapped_plan))
+            )
 
             for category, file_list in mapped_plan.items():
-
                 logger.debug(
                     f"file list sent for category: ' {category} ' for organizing."
                 )
@@ -125,14 +138,22 @@ if __name__ == "__main__":
                     directory=args.directory,
                     verbose_mode=args.verbose,
                     dry_run=args.dry_run,
-                    showoff=args.showoff
+                    showoff=args.showoff,
                 )
             logger.info("the files have been successfully organized")
-            logger.info(f"statistics: {this_session_stats.files_moved} total moved files")
-            logger.info(f"statistics: {this_session_stats.directories_created} total directories created")
-            logger.info(f"statistics: {this_session_stats.extensions_found} total extensions found")
+            logger.info(
+                f"statistics: {this_session_stats.files_moved} total moved files"
+            )
+            logger.info(
+                f"statistics: {this_session_stats.directories_created} total directories created"
+            )
+            logger.info(
+                f"statistics: {this_session_stats.extensions_found} total extensions found"
+            )
             if args.category == "types":
-                logger.info(f"statistics: {this_session_stats.types_found} total types found")
+                logger.info(
+                    f"statistics: {this_session_stats.types_found} total types found"
+                )
         else:
             logger.info("Files organizing has been terminated. No changes will be made")
     if args.command == "suggest":
