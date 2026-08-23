@@ -26,12 +26,15 @@ files by extension or file type. Based on the extension, the files will
 be automatically put into one of file type categories (.png = Photos etc.)
 #### Features
 1. DEBUG: --verbose flag sets logging level to debug.
-2. SAFETY: program checks if a folder with category
-name already exists, and if so does happen,
-terminates the program before any changes to the files.
-3. CONTROL: --dry-run flag makes the script go 
+2. CONTROL: --dry-run flag makes the script go 
 through every step of standard organizing, 
 without making any changes to the actual files.
+3. FUN: --showoff flag turns on ASMR mode.
+   - it adds timestamps between EVERY file action.
+   - A slowdown is also added to the console plan printing.
+4. SAFETY: program checks if a folder with category
+name already exists, and if so does happen,
+terminates the program before submitting any changes.
 ## Quality control
 
 `ruff check .`
@@ -96,7 +99,7 @@ organizer plan + confirm → **_FILE MOVER (files)_** → organized files
 -[x] add --dry-run
 
 #### COSMETICS
--[ ] add "showoff mode" with timestamps between moving
+-[x] add "showoff mode" with timestamps between moving
 
 -[ ] add the possibility to add or change assignment of extension to file type
 
