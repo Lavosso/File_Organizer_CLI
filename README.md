@@ -22,19 +22,22 @@ pip install -r requirements.txt
    - **asks for confirmation** to execute the plan
    - y/n : **executes** the plan / **terminates** without making changes
 3. `python src/cli.py configure`
-   - opens a cli for configuring the extension to file type mapping.
+   - opens a cli for configuring the "extension → file type" mapping.
    - possibility to **delete / add / edit a mapping**.
    - mapping is **saved in file_types.json file** - permanence of editing.
 4. `--category` 
-   - decide whether to organize files by **extension** or **file type**.
-   - file type is decided through **extension to file type** mapping
+   - it is possible to organize files by 
+     - **extension**, 
+     - **file type**, 
+     - **date of creation**.
+   - file type is decided through **extension → file type** mapping
 #### Features
 1. **DEBUG**: --verbose flag sets logging level to debug.
 2. **CONTROL**: --dry-run flag makes the script go 
 through every step of standard organizing, 
 without making any changes to the actual files.
 3. **FUN**: --showoff flag turns on ASMR mode.
-   - it adds timestamps between EVERY file action.
+   - it adds timestamps between EVERY active file and directory action.
    - A slowdown is also added to the console plan printing.
 4. **SAFETY**: program checks if a folder with category
 name already exists, and if so does happen,
@@ -110,6 +113,6 @@ organizer plan + confirm → **_FILE MOVER (files)_** → organized files
 -[x] add console summary
 
 #### FULL VERSION (1.0)
--[ ] add grouping by date of file creation
+-[x] add grouping by date of file creation
 
 -[ ] add HTML reporting

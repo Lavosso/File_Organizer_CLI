@@ -1,5 +1,6 @@
 import argparse
 from dataclasses import dataclass
+from email.contentmanager import raw_data_manager
 
 from configure import *
 from files import *
@@ -41,7 +42,7 @@ def create_parser() -> argparse.ArgumentParser:
     created_parser.add_argument(
         "--category",
         help="category for how to organize the files",
-        choices=["extensions", "types"],
+        choices=["extensions", "types", "date"],
     )
     created_parser.add_argument(
         "--showoff", help="adds timestamps for asmr file moving", action="store_true"
@@ -95,18 +96,18 @@ if __name__ == "__main__":
     # mapping plan based on category
     mapped_plan = {}
     if args.category == "extensions":
-        mapped_plan = map_files_to_extensions(
-            file_list=user_file_list, verbose_mode=args.verbose
-        )
+        mapped_plan = map_files_to_extensions(raw_file_list=user_file_list, verbose_mode=args.verbose)
     if args.category == "types":
-        mapped_plan = map_files_to_file_types(raw_file_list=user_file_list)
-
+        mapped_plan = map_files_to_file_types(raw_file_list=user_file_list, verbose_mode=args.verbose)
+    if args.category == "date":
+        files_with_dates_list = [map_file_to_date(args.directory+"/"+file) for file in user_file_list]
+        mapped_plan = map_files_to_dates(raw_file_list=files_with_dates_list, verbose_mode=args.verbose)
     if args.command == "organize":
         print_plan(plan=mapped_plan, showoff=args.showoff)
         if input("Do you wish to apply the suggested plan? y/n: ") == "y":
             logger.debug("categories list sent to directories creator")
             create_directories_for_categories(
-                categories=list_categories(mapped_plan),
+                categories=list_categories_from_plan(mapped_plan),
                 directory=args.directory,
                 verbose_mode=args.verbose,
                 dry_run=args.dry_run,
@@ -114,16 +115,12 @@ if __name__ == "__main__":
             )
             # Statistics on amount of extensions and types found, dirs made
             if args.category == "types":
-                this_session_stats.count_types_found(list(list_categories(mapped_plan)))
-                this_session_stats.count_extensions_found(
-                    list(list_extensions(user_file_list))
-                )
-            if args.category == "extensions":
-                this_session_stats.count_extensions_found(
-                    list(list_categories(mapped_plan))
-                )
+                this_session_stats.count_types_found(list(list_categories_from_plan(mapped_plan)))
+            this_session_stats.count_extensions_found(
+                list(list_extensions(user_file_list))
+            )
             this_session_stats.count_created_directories(
-                list(list_categories(mapped_plan))
+                list(list_categories_from_plan(mapped_plan))
             )
 
             for category, file_list in mapped_plan.items():
