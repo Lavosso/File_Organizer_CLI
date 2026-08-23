@@ -20,6 +20,9 @@ def create_parser() -> argparse.ArgumentParser:
         choices=["extensions", "types"],
     )
     created_parser.add_argument(
+        "--showoff", help="adds timestamps for asmr file moving", action="store_true"
+    )
+    created_parser.add_argument(
         "--verbose",
         help="verbose mode - logging level set to debug",
         action="store_true",
