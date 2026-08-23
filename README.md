@@ -102,13 +102,14 @@ organizer plan + confirm → **_FILE MOVER (files)_** → organized files
 
 -[x] add --dry-run
 
-#### COSMETICS
+#### COSMETICS (0.3)
 -[x] add "showoff mode" with timestamps between moving
 
 -[x] add the possibility to add, change or delete mapping of extension to file type
 
--[ ] add console summary
+-[x] add console summary
 
+#### FULL VERSION (1.0)
 -[ ] add grouping by date of file creation
 
 -[ ] add HTML reporting
