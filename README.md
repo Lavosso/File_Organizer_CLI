@@ -15,24 +15,28 @@ pip install -r requirements.txt
 ## Launching and features
 
 #### Launching
-1. src/cli.py suggest -d (directory) --category (extensions/types)
-   - returns suggested organizing plan for the directory
-2. src/cli.py organize -d (directory) --category (extensions/types)
-   - prints suggested organizing plan
-   - asks user for confirmation to execute the plan
-   - y/n : executes the plan / finishes without making changes
-3. --category flag makes it possible to decide, whether to organize
-files by extension or file type. Based on the extension, the files will
-be automatically put into one of file type categories (.png = Photos etc.)
+1. `python src/cli.py suggest -d (directory) --category (extensions/types)`
+   - prints suggested organizing plan for the directory
+2. `python src/cli.py organize -d (directory) --category (extensions/types)`
+   - prints suggested organizing plan for the directory
+   - **asks for confirmation** to execute the plan
+   - y/n : **executes** the plan / **terminates** without making changes
+3. `python src/cli.py configure`
+   - opens a cli for configuring the extension to file type mapping.
+   - possibility to **delete / add / edit a mapping**.
+   - mapping is **saved in file_types.json file** - permanence of editing.
+4. `--category` 
+   - decide whether to organize files by **extension** or **file type**.
+   - file type is decided through **extension to file type** mapping
 #### Features
-1. DEBUG: --verbose flag sets logging level to debug.
-2. CONTROL: --dry-run flag makes the script go 
+1. **DEBUG**: --verbose flag sets logging level to debug.
+2. **CONTROL**: --dry-run flag makes the script go 
 through every step of standard organizing, 
 without making any changes to the actual files.
-3. FUN: --showoff flag turns on ASMR mode.
+3. **FUN**: --showoff flag turns on ASMR mode.
    - it adds timestamps between EVERY file action.
    - A slowdown is also added to the console plan printing.
-4. SAFETY: program checks if a folder with category
+4. **SAFETY**: program checks if a folder with category
 name already exists, and if so does happen,
 terminates the program before submitting any changes.
 ## Quality control
@@ -101,7 +105,7 @@ organizer plan + confirm → **_FILE MOVER (files)_** → organized files
 #### COSMETICS
 -[x] add "showoff mode" with timestamps between moving
 
--[ ] add the possibility to add or change assignment of extension to file type
+-[x] add the possibility to add, change or delete mapping of extension to file type
 
 -[ ] add console summary
 

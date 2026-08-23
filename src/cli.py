@@ -2,7 +2,7 @@ import argparse
 
 from files import *
 from planner import *
-
+from configure import *
 logger = logging.getLogger(__name__)
 
 
@@ -12,7 +12,7 @@ def create_parser() -> argparse.ArgumentParser:
         "-d", "--directory", help="directory to organize or list", type=str
     )
     created_parser.add_argument(
-        "command", help="command to execute", choices=["organize", "suggest"]
+        "command", help="command to execute", choices=["organize", "suggest", "configure"]
     )
     created_parser.add_argument(
         "--category",
@@ -61,6 +61,9 @@ if __name__ == "__main__":
         logger.setLevel(logging.DEBUG)
         logger.debug("logging level set to debug")
         logger.debug(args)
+
+    if args.command == "configure":
+        configure_cli()
 
     # listing files in user directory
     user_file_list = list_files_in_directory(directory=args.directory)
