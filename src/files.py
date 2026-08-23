@@ -1,6 +1,7 @@
 import logging
 import os
 import sys
+import time
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
@@ -29,7 +30,11 @@ def list_directories_in_directory(directory: str) -> list:
 
 
 def create_directories_for_categories(
-    categories: set, directory: str, verbose_mode: bool = False, dry_run: bool = False
+    categories: set,
+    directory: str,
+    verbose_mode: bool = False,
+    dry_run: bool = False,
+    showoff: bool = False,
 ) -> None:
     if verbose_mode or dry_run:
         logger.setLevel(logging.DEBUG)
@@ -40,6 +45,8 @@ def create_directories_for_categories(
             )
             sys.exit()
     for category in categories:
+        if showoff:
+            time.sleep(1)
         if not dry_run:
             os.makedirs(directory + "/" + category)
         logger.debug("successfully created directory for category " + category)
@@ -51,10 +58,13 @@ def move_files_to_category_dir(
     directory: Path,
     verbose_mode: bool = False,
     dry_run: bool = False,
+    showoff: bool = False,
 ) -> None:
     if verbose_mode or dry_run:
         logger.setLevel(logging.DEBUG)
     for file in file_list:
+        if showoff:
+            time.sleep(1)
         if not dry_run:
             os.rename(
                 str(directory) + "/" + file,

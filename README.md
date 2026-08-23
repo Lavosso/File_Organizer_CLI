@@ -96,7 +96,7 @@ organizer plan + confirm → **_FILE MOVER (files)_** → organized files
 -[x] add --dry-run
 
 #### COSMETICS
--[ ] add "showoff mode" with timestamps between moving
+-[x] add "showoff mode" with timestamps between moving
 
 -[ ] add the possibility to add or change assignment of extension to file type
 

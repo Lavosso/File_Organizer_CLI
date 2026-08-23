@@ -35,11 +35,15 @@ def create_parser() -> argparse.ArgumentParser:
     return created_parser
 
 
-def print_plan(plan: dict[str, list]):
+def print_plan(plan: dict[str, list], showoff: bool = False) -> None:
     print("suggested plan of organizing:")
     for plan_category, plan_file_list in plan.items():
+        if showoff:
+            time.sleep(1)
         print(f"---- category: {plan_category} ----")
         for file in plan_file_list:
+            if showoff:
+                time.sleep(0.2)
             print(f"-> {file}")
         print()
 
@@ -71,7 +75,7 @@ if __name__ == "__main__":
         mapped_plan = map_files_to_file_types(raw_file_list=user_file_list)
 
     if args.command == "organize":
-        print_plan(mapped_plan)
+        print_plan(plan=mapped_plan, showoff=args.showoff)
         if input("Do you wish to apply the suggested plan? y/n: ") == "y":
             logger.debug("extensions list sent to directories creator")
             create_directories_for_categories(
@@ -79,6 +83,7 @@ if __name__ == "__main__":
                 directory=args.directory,
                 verbose_mode=args.verbose,
                 dry_run=args.dry_run,
+                showoff=args.showoff
             )
             for category, file_list in mapped_plan.items():
                 logger.debug(
@@ -90,9 +95,10 @@ if __name__ == "__main__":
                     directory=args.directory,
                     verbose_mode=args.verbose,
                     dry_run=args.dry_run,
+                    showoff=args.showoff
                 )
             logger.info("the files have been successfully organized")
         else:
             logger.info("Files organizing has been terminated. No changes will be made")
     if args.command == "suggest":
-        print_plan(mapped_plan)
+        print_plan(plan=mapped_plan, showoff=args.showoff)
