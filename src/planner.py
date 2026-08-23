@@ -1,3 +1,4 @@
+import json
 import logging
 from pathlib import Path
 
@@ -15,13 +16,19 @@ def list_extensions(files: list) -> set:
     return extensions_set
 
 
+def list_categories(plan: dict[str, list]) -> set:
+    categories_set = {key for key in plan}
+    return categories_set
+
+
 def map_files_to_extensions(
-    files: list, extensions: set, verbose_mode: bool = False
+    file_list: list, verbose_mode: bool = False
 ) -> dict[str, list]:
+    extensions = list_extensions(file_list)
     mapped_files: dict = {extension: [] for extension in extensions}
     if verbose_mode:
         logger.setLevel(logging.DEBUG)
-    for file in files:
+    for file in file_list:
         if Path(file).suffix:
             mapped_files[Path(file).suffix].append(file)
             logger.debug(
@@ -30,5 +37,24 @@ def map_files_to_extensions(
         else:
             mapped_files[file].append(file)
             logger.debug(f"successfully mapped file {file} to category {file}")
-
     return mapped_files
+
+
+def map_files_to_file_types(
+    raw_file_list: list, verbose_mode: bool = False
+) -> dict[str, list]:
+    files_mapped_to_extensions = map_files_to_extensions(raw_file_list)
+    with open("src/file_types.json", "r") as file_types_json_data:
+        file_types = json.load(file_types_json_data)
+    file_mapped_to_file_types: dict[str, list] = {}
+    for extension, file_list in files_mapped_to_extensions.items():
+        try:
+            file_type = file_types[extension]
+        except KeyError:
+            file_type = "Other"
+        try:
+            for file in file_list:
+                file_mapped_to_file_types[file_type].append(file)
+        except KeyError:
+            file_mapped_to_file_types[file_type] = file_list
+    return file_mapped_to_file_types

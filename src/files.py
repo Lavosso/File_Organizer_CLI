@@ -46,7 +46,7 @@ def create_directories_for_categories(
 
 
 def move_files_to_category_dir(
-    files: list,
+    file_list: list,
     category: str,
     directory: Path,
     verbose_mode: bool = False,
@@ -54,16 +54,10 @@ def move_files_to_category_dir(
 ) -> None:
     if verbose_mode or dry_run:
         logger.setLevel(logging.DEBUG)
-    for file in files:
+    for file in file_list:
         if not dry_run:
             os.rename(
                 str(directory) + "/" + file,
                 str(directory) + "/" + category + "/" + file,
             )
         logger.debug(f"successfully moved file {file} to directory {category}")
-
-
-# def map_files_to_categories(
-#        files_mapped_to_extensions: dict, verbose_mode: bool = False
-# )-> dict[str, list]:
-#    categories = json.load(open("categories.json", "r"))

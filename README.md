@@ -9,19 +9,21 @@ git clone https://github.com/Lavosso/File_Organizer_CLI.git
 cd File_Organizer_CLI
 python3.14 -m venv .venv
 .venv\Scripts\Activate.ps1 
-pip install requests
+pip install -r requirements.txt
 ```
 
 ## Launching and features
 
-#### Lauching
-1. src/cli.py suggest -d (directory) 
+#### Launching
+1. src/cli.py suggest -d (directory) --category (extensions/types)
    - returns suggested organizing plan for the directory
-2. src/cli.py organize -d (directory)
+2. src/cli.py organize -d (directory) --category (extensions/types)
    - prints suggested organizing plan
    - asks user for confirmation to execute the plan
    - y/n : executes the plan / finishes without making changes
-
+3. --category flag makes it possible to decide, whether to organize
+files by extension or file type. Based on the extension, the files will
+be automatically put into one of file type categories (.png = Photos etc.)
 #### Features
 1. DEBUG: --verbose flag sets logging level to debug.
 2. SAFETY: program checks if a folder with category
@@ -82,19 +84,21 @@ organizer plan + confirm → **_FILE MOVER (files)_** → organized files
 
 -[x] FILES MOVER (takes directory and list of files to move)
 
-#### FUNCTIONALITIES
+#### FUNCTIONALITIES (0.2)
 -[x] add verification to border situations, such as dir replacing
 
 -[x] add more testing
 
 -[x] add logging
 
--[ ] add another category of grouping (file type)
+-[x] add another category of grouping (file type)
 
 -[x] add --dry-run
 
 #### COSMETICS
 -[ ] add "showoff mode" with timestamps between moving
+
+-[ ] add the possibility to add or change assignment of extension to file type
 
 -[ ] add console summary
 

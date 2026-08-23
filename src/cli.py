@@ -15,6 +15,11 @@ def create_parser() -> argparse.ArgumentParser:
         "command", help="command to execute", choices=["organize", "suggest"]
     )
     created_parser.add_argument(
+        "--category",
+        help="category for how to organize the files",
+        choices=["extensions", "types"],
+    )
+    created_parser.add_argument(
         "--verbose",
         help="verbose mode - logging level set to debug",
         action="store_true",
@@ -53,34 +58,36 @@ if __name__ == "__main__":
     # listing files in user directory
     user_file_list = list_files_in_directory(directory=args.directory)
 
-    extensions_set = list_extensions(user_file_list)
-    mapped_plan = map_files_to_extensions(
-        user_file_list, extensions_set, verbose_mode=args.verbose
-    )
+    # mapping plan based on category
+    mapped_plan = {}
+    if args.category == "extensions":
+        mapped_plan = map_files_to_extensions(
+            file_list=user_file_list, verbose_mode=args.verbose
+        )
+    if args.category == "types":
+        mapped_plan = map_files_to_file_types(raw_file_list=user_file_list)
 
     if args.command == "organize":
         print_plan(mapped_plan)
         if input("Do you wish to apply the suggested plan? y/n: ") == "y":
             logger.debug("extensions list sent to directories creator")
             create_directories_for_categories(
-                extensions_set,
-                args.directory,
+                categories=list_categories(mapped_plan),
+                directory=args.directory,
                 verbose_mode=args.verbose,
                 dry_run=args.dry_run,
             )
-
             for category, file_list in mapped_plan.items():
                 logger.debug(
                     f"file list sent for category: ' {category} ' for organizing."
                 )
                 move_files_to_category_dir(
-                    file_list,
-                    category,
-                    args.directory,
+                    file_list=file_list,
+                    category=category,
+                    directory=args.directory,
                     verbose_mode=args.verbose,
                     dry_run=args.dry_run,
                 )
-
             logger.info("the files have been successfully organized")
         else:
             logger.info("Files organizing has been terminated. No changes will be made")
