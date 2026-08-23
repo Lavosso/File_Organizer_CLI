@@ -5,9 +5,9 @@ Python file organizer - organize messy folders through grouping by date, extensi
 
 ```commandline
 mkdir File_Organizer_CLI
-cd File_Organizer_CLI
 git clone https://github.com/Lavosso/File_Organizer_CLI.git
-py -m venv .venv
+cd File_Organizer_CLI
+python3.14 -m venv .venv
 .venv\Scripts\Activate.ps1 
 pip install requests
 ```
