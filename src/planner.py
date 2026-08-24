@@ -31,14 +31,16 @@ def map_files_to_extensions(
         file_extension = Path(file).suffix
         if file_extension:
             if file_extension not in mapped_files:
-                mapped_files[Path(file).suffix]=[file]
+                mapped_files[Path(file).suffix] = [file]
             else:
                 mapped_files[Path(file).suffix].append(file)
-            logger.debug(f"successfully mapped file {file} to category {Path(file).suffix}")
+            logger.debug(
+                f"successfully mapped file {file} to category {Path(file).suffix}"
+            )
         # Handling of files with no names, such as ".git"
         else:
             if file not in mapped_files:
-                mapped_files[file]=[file]
+                mapped_files[file] = [file]
             else:
                 mapped_files[file].append(file)
             logger.debug(f"successfully mapped file {file} to category {file}")
@@ -82,18 +84,18 @@ def map_files_to_file_types(
 
 
 def map_files_to_dates(
-        raw_file_list: list[tuple], verbose_mode: bool = False
-    ) -> dict[str, list]:
-        files_mapped_to_dates = {}
-        if verbose_mode:
-            logger.setLevel(logging.DEBUG)
-        for file in raw_file_list:
-            file_name = file[0]
-            file_date = file[1]
-            if file_date not in files_mapped_to_dates:
-                files_mapped_to_dates[file_date] = [file_name]
-            else:
-                files_mapped_to_dates[file_date].append(file_name)
-            logger.debug(f"file {file_name} mapped to date {file_date}")
-        logger.debug("files mapped to dates successfully, sending back...")
-        return files_mapped_to_dates
+    raw_file_list: list[tuple], verbose_mode: bool = False
+) -> dict[str, list]:
+    files_mapped_to_dates = {}
+    if verbose_mode:
+        logger.setLevel(logging.DEBUG)
+    for file in raw_file_list:
+        file_name = file[0]
+        file_date = file[1]
+        if file_date not in files_mapped_to_dates:
+            files_mapped_to_dates[file_date] = [file_name]
+        else:
+            files_mapped_to_dates[file_date].append(file_name)
+        logger.debug(f"file {file_name} mapped to date {file_date}")
+    logger.debug("files mapped to dates successfully, sending back...")
+    return files_mapped_to_dates

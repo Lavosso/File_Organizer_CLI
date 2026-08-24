@@ -1,10 +1,9 @@
 import argparse
 from dataclasses import dataclass
-from email.contentmanager import raw_data_manager
 
-from configure import *
-from files import *
-from planner import *
+from .configure import *
+from .files import *
+from .planner import *
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +44,7 @@ def create_parser() -> argparse.ArgumentParser:
         choices=["extensions", "types", "date"],
     )
     created_parser.add_argument(
-        "--showoff", help="adds timestamps for asmr file moving", action="store_true"
+        "--showoff", help="adds timestamps for ASMR file moving", action="store_true"
     )
     created_parser.add_argument(
         "--verbose",
@@ -96,12 +95,20 @@ if __name__ == "__main__":
     # mapping plan based on category
     mapped_plan = {}
     if args.category == "extensions":
-        mapped_plan = map_files_to_extensions(raw_file_list=user_file_list, verbose_mode=args.verbose)
+        mapped_plan = map_files_to_extensions(
+            raw_file_list=user_file_list, verbose_mode=args.verbose
+        )
     if args.category == "types":
-        mapped_plan = map_files_to_file_types(raw_file_list=user_file_list, verbose_mode=args.verbose)
+        mapped_plan = map_files_to_file_types(
+            raw_file_list=user_file_list, verbose_mode=args.verbose
+        )
     if args.category == "date":
-        files_with_dates_list = [map_file_to_date(args.directory+"/"+file) for file in user_file_list]
-        mapped_plan = map_files_to_dates(raw_file_list=files_with_dates_list, verbose_mode=args.verbose)
+        files_with_dates_list = [
+            map_file_to_date(args.directory + "/" + file) for file in user_file_list
+        ]
+        mapped_plan = map_files_to_dates(
+            raw_file_list=files_with_dates_list, verbose_mode=args.verbose
+        )
     if args.command == "organize":
         print_plan(plan=mapped_plan, showoff=args.showoff)
         if input("Do you wish to apply the suggested plan? y/n: ") == "y":
@@ -115,7 +122,9 @@ if __name__ == "__main__":
             )
             # Statistics on amount of extensions and types found, dirs made
             if args.category == "types":
-                this_session_stats.count_types_found(list(list_categories_from_plan(mapped_plan)))
+                this_session_stats.count_types_found(
+                    list(list_categories_from_plan(mapped_plan))
+                )
             this_session_stats.count_extensions_found(
                 list(list_extensions(user_file_list))
             )

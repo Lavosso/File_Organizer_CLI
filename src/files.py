@@ -7,9 +7,13 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+
 def map_file_to_date(directory: str):
-    creation_time = time.strftime('%Y-%m-%d', time.localtime(os.path.getctime(directory)))
+    creation_time = time.strftime(
+        "%Y-%m-%d", time.localtime(os.path.getctime(directory))
+    )
     return Path(directory).name, creation_time
+
 
 def list_files_in_directory(directory: str) -> list:
     dir_insides = os.listdir(path=directory)
