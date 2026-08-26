@@ -31,6 +31,9 @@ pip install -r requirements.txt
      - **file type**, 
      - **date of creation**.
    - file type is decided through **extension → file type** mapping
+5. `--html`
+   - it is possible for the program to generate an HTML report.
+   - If the flag is not set up by the user, the program will double check at the end.
 #### Features
 1. **DEBUG**: --verbose flag sets logging level to debug.
 2. **CONTROL**: --dry-run flag makes the script go 
@@ -112,7 +115,8 @@ organizer plan + confirm → **_FILE MOVER (files)_** → organized files
 
 -[x] add console summary
 
-#### FULL VERSION (1.0)
+#### ADDITIONAL (0.4)
 -[x] add grouping by date of file creation
 
--[ ] add HTML reporting
+#### FULL VERSION (1.0)
+-[x] add HTML reporting

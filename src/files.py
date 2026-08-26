@@ -62,7 +62,7 @@ def create_directories_for_categories(
 def move_files_to_category_dir(
     file_list: list,
     category: str,
-    directory: Path,
+    directory: Path | str,
     verbose_mode: bool = False,
     dry_run: bool = False,
     showoff: bool = False,

@@ -1,15 +1,19 @@
 import argparse
+import datetime
 from dataclasses import dataclass
+from pathlib import PureWindowsPath
 
-from .configure import *
-from .files import *
-from .planner import *
+from configure import *
+from files import *
+from html_reporting import *
+from planner import *
 
 logger = logging.getLogger(__name__)
 
 
 @dataclass
 class Statistics:
+    files_per_category: dict[str, int]
     files_moved: int = 0
     directories_created: int = 0
     extensions_found: int = 0
@@ -27,6 +31,9 @@ class Statistics:
     def count_types_found(self, types_list: list):
         self.types_found += len(types_list)
 
+    def add_file_count_per_category(self, file_count: int, file_category: str):
+        self.files_per_category[file_category] = file_count
+
 
 def create_parser() -> argparse.ArgumentParser:
     created_parser = argparse.ArgumentParser()
@@ -42,6 +49,11 @@ def create_parser() -> argparse.ArgumentParser:
         "--category",
         help="category for how to organize the files",
         choices=["extensions", "types", "date"],
+    )
+    created_parser.add_argument(
+        "--html",
+        help="makes the program make an HTML report",
+        action="store_true",
     )
     created_parser.add_argument(
         "--showoff", help="adds timestamps for ASMR file moving", action="store_true"
@@ -79,7 +91,10 @@ if __name__ == "__main__":
     )
     parser = create_parser()
     args = parser.parse_args()
-    this_session_stats = Statistics()
+    args.directory = PureWindowsPath(args.directory).as_posix()
+
+    this_session_stats = Statistics({})
+
     # verbose mode
     if args.verbose or args.dry_run:
         logger.setLevel(logging.DEBUG)
@@ -138,6 +153,8 @@ if __name__ == "__main__":
                 )
                 # Statistics on amount of files moved
                 this_session_stats.count_moved_files(file_list)
+                # Statistics on files per category moved
+                this_session_stats.add_file_count_per_category(len(file_list), category)
                 move_files_to_category_dir(
                     file_list=file_list,
                     category=category,
@@ -146,6 +163,7 @@ if __name__ == "__main__":
                     dry_run=args.dry_run,
                     showoff=args.showoff,
                 )
+
             logger.info("the files have been successfully organized")
             logger.info(
                 f"statistics: {this_session_stats.files_moved} total moved files"
@@ -160,6 +178,46 @@ if __name__ == "__main__":
                 logger.info(
                     f"statistics: {this_session_stats.types_found} total types found"
                 )
+            if args.html or (input("Do you wish to have an HTML report made? y/n: ") == "y"):
+                organizing_title = f"Report for: {args.directory}, date: {datetime.datetime.now(tz=datetime.UTC).date()}"
+                organizing_data: dict = {
+                    # General: total files moved, total directories created, total extensions found, total types found
+                    "Overall statistics": [
+                        f"total files moved: {this_session_stats.files_moved}",
+                        f"total directories created: {this_session_stats.directories_created}",
+                        f"total different extensions found: {this_session_stats.extensions_found}",
+                    ],
+                    # Data per category
+                    "Total files per category": [
+                        f"{files_category} : {files_count}"
+                        for files_category, files_count in this_session_stats.files_per_category.items()
+                    ],
+                }
+                if args.category == "types":
+                    organizing_data["Overall statistics"].append(
+                        f"total types of data found: {this_session_stats.types_found}"
+                    )
+                # Drawing the overall map onto Markdown
+                organizing_data["Detailed map of organizing : "] = []
+
+                for file_category, file_list in mapped_plan.items():
+                    category_string = f"' {file_category} ' category file list : \n"
+                    for file in file_list:
+                        category_string += f"    - {file}\n"
+                    organizing_data["Detailed map of organizing : "].append(
+                        category_string
+                    )
+
+                organizing_data_md = rewrite_data_in_markdown(
+                    organizing_data, organizing_title
+                )
+                organizing_data_html = rewrite_markdown_into_html(organizing_data_md)
+
+                with open(args.directory + "/report.html", "w", encoding="utf-8") as f:
+                    f.write(organizing_data_html)
+
+                logger.info("The HTML file has been made and can be found in the organized directory folder")
+
         else:
             logger.info("Files organizing has been terminated. No changes will be made")
     if args.command == "suggest":
