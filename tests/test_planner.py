@@ -46,14 +46,19 @@ def test_map_files_to_file_types():
         file_types = json.load(f)
     result = planner.map_files_to_file_types(data_files)
     for file in data_files:
-        assert result[
-            file_types[
-                next(
-                    key
-                    for key, value in planner.map_files_to_extensions([file]).items()
-                )
+        assert (
+            file
+            in result[
+                file_types[
+                    next(
+                        key
+                        for key, value in planner.map_files_to_extensions(
+                            [file]
+                        ).items()
+                    )
+                ]
             ]
-        ].__contains__(file)
+        )
 
 
 def test_map_files_to_file_types_no_name():
@@ -62,14 +67,19 @@ def test_map_files_to_file_types_no_name():
         file_types = json.load(f)
     result = planner.map_files_to_file_types(data_files)
     for file in data_files:
-        assert result[
-            file_types[
-                next(
-                    key
-                    for key, value in planner.map_files_to_extensions([file]).items()
-                )
+        assert (
+            file
+            in result[
+                file_types[
+                    next(
+                        key
+                        for key, value in planner.map_files_to_extensions(
+                            [file]
+                        ).items()
+                    )
+                ]
             ]
-        ].__contains__(file)
+        )
 
 
 def test_list_extensions():

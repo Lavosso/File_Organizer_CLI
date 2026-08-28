@@ -5,7 +5,6 @@ import time
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
 
 
 def map_file_to_date(directory: Path):
@@ -23,10 +22,8 @@ def list_files_in_directory(directory: Path) -> list:
             dir_files.append(file)
         else:
             logger.warning(f"yes, {directory / file} is a directory")
-
     if not dir_files:
-        logger.warning("no user files found - no organizing can be done.")
-        sys.exit(0)
+        logger.warning("no user files found. returning empty list")
     return dir_files
 
 

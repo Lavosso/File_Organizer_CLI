@@ -1,4 +1,3 @@
-import pytest
 
 from src import files
 
@@ -22,9 +21,8 @@ def test_list_files_in_directory(tmpdir):
 
 
 def test_list_files_in_directory_no_files(tmpdir):
-    with pytest.raises(SystemExit):
-        directory_path = tmpdir
-        files.list_files_in_directory(directory=directory_path)
+    directory_path = tmpdir
+    assert not files.list_files_in_directory(directory=directory_path)
 
 
 def test_list_files_in_directory_has_dirs(tmp_path):

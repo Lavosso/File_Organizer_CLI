@@ -3,10 +3,9 @@ import logging
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
 
 
-def list_extensions(files: list) -> set:
+def list_extensions(files: list[str]) -> set[str]:
     extensions_set = set()
     for file in files:
         if Path(file).suffix:
@@ -16,14 +15,14 @@ def list_extensions(files: list) -> set:
     return extensions_set
 
 
-def list_categories_from_plan(plan: dict[str, list]) -> set:
+def list_categories_from_plan(plan: dict[str, list]) -> set[str]:
     categories_set = {key for key in plan}
     return categories_set
 
 
 def map_files_to_extensions(
-    raw_file_list: list, verbose_mode: bool = False
-) -> dict[str, list]:
+    raw_file_list: list[str], verbose_mode: bool = False
+) -> dict[str, list[str]]:
     mapped_files = {}
     if verbose_mode:
         logger.setLevel(logging.DEBUG)
@@ -49,8 +48,8 @@ def map_files_to_extensions(
 
 
 def map_files_to_file_types(
-    raw_file_list: list, verbose_mode: bool = False
-) -> dict[str, list]:
+    raw_file_list: list[str], verbose_mode: bool = False
+) -> dict[str, list[str]]:
     if verbose_mode:
         logger.setLevel(logging.DEBUG)
     logger.debug("raw file list mapped to extensions for easier further actions")
@@ -84,8 +83,8 @@ def map_files_to_file_types(
 
 
 def map_files_to_dates(
-    raw_file_list: list[tuple], verbose_mode: bool = False
-) -> dict[str, list]:
+    raw_file_list: list[tuple[str, str]], verbose_mode: bool = False
+) -> dict[str, list[str]]:
     files_mapped_to_dates = {}
     if verbose_mode:
         logger.setLevel(logging.DEBUG)

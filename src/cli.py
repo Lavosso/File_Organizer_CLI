@@ -1,6 +1,7 @@
 import argparse
 import datetime
 import logging
+import sys
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -17,19 +18,6 @@ class Statistics:
     directories_created: int = 0
     extensions_found: int = 0
     types_found: int = 0
-
-    def count_moved_files(self, entire_file_list: list):
-        self.files_moved += len(entire_file_list)
-
-    def count_created_directories(self, directories_list: list):
-        self.directories_created += len(directories_list)
-
-    def count_extensions_found(self, extensions_list: list):
-        self.extensions_found += len(extensions_list)
-
-    def count_types_found(self, types_list: list):
-        self.types_found += len(types_list)
-
     def add_file_count_per_category(self, file_count: int, files_category: str):
         self.files_per_category[files_category] = file_count
 
@@ -83,7 +71,7 @@ def print_plan(plan: dict[str, list], showoff: bool = False) -> None:
         print()
 
 
-if __name__ == "__main__":
+def main():
     # setup
     logging.basicConfig(
         level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -103,7 +91,11 @@ if __name__ == "__main__":
 
     # listing files in user directory
     user_file_list = files.list_files_in_directory(directory=args.directory)
-
+    if not user_file_list:
+        logger.warning(
+            "no user files found  - no organizing can be done - terminating program"
+        )
+        sys.exit(0)
     # mapping plan based on category
     mapped_plan = {}
     if args.category == "extensions":
@@ -134,22 +126,17 @@ if __name__ == "__main__":
             )
             # Statistics on amount of extensions and types found, dirs made
             if args.category == "types":
-                this_session_stats.count_types_found(
-                    list(planner.list_categories_from_plan(mapped_plan))
-                )
-            this_session_stats.count_extensions_found(
-                list(planner.list_extensions(user_file_list))
-            )
-            this_session_stats.count_created_directories(
-                list(planner.list_categories_from_plan(mapped_plan))
-            )
+                this_session_stats.types_found = len(list(planner.list_categories_from_plan(mapped_plan)))
+
+            this_session_stats.extensions_found = len(list(planner.list_extensions(user_file_list)))
+            this_session_stats.directories_created = len(list(planner.list_categories_from_plan(mapped_plan)))
 
             for category, file_list in mapped_plan.items():
                 logger.debug(
                     f"file list sent for category: ' {category} ' for organizing."
                 )
                 # Statistics on amount of files moved
-                this_session_stats.count_moved_files(file_list)
+                this_session_stats.files_moved += len(file_list)
                 # Statistics on files per category moved
                 this_session_stats.add_file_count_per_category(len(file_list), category)
                 files.move_files_to_category_dir(
@@ -225,3 +212,6 @@ if __name__ == "__main__":
             logger.info("Files organizing has been terminated. No changes will be made")
     if args.command == "suggest":
         print_plan(plan=mapped_plan, showoff=args.showoff)
+
+if __name__ == "__main__":
+    main()
