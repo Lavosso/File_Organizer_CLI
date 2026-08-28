@@ -1,0 +1,17 @@
+README.md
+pyproject.toml
+file_organizer_cli.egg-info/PKG-INFO
+file_organizer_cli.egg-info/SOURCES.txt
+file_organizer_cli.egg-info/dependency_links.txt
+file_organizer_cli.egg-info/entry_points.txt
+file_organizer_cli.egg-info/requires.txt
+file_organizer_cli.egg-info/top_level.txt
+src/__init__.py
+src/cli.py
+src/configure.py
+src/file_types.json
+src/files.py
+src/html_reporting.py
+src/planner.py
+tests/test_files.py
+tests/test_planner.py

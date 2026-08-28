@@ -1,0 +1,2 @@
+[console_scripts]
+file-organizer = src.cli:main

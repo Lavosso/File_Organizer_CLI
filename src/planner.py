@@ -54,7 +54,7 @@ def map_files_to_file_types(
         logger.setLevel(logging.DEBUG)
     logger.debug("raw file list mapped to extensions for easier further actions")
     files_mapped_to_extensions = map_files_to_extensions(raw_file_list)
-    with open("src/file_types.json", "r") as file_types_json_data:
+    with open("file_types.json", "r") as file_types_json_data:
         file_types = json.load(file_types_json_data)
         logger.debug("loaded data from file_types.json")
     file_mapped_to_file_types: dict[str, list] = {}
