@@ -3,40 +3,40 @@ import sys
 
 
 def edit_mapping(extension: str, file_type: str):
-    with open("src/file_types.json", "r") as config_file:
+    with open("file_types.json", "r") as config_file:
         config = json.load(config_file)
     if extension not in config:
         raise KeyError(f"{extension} is not a valid file extension")
     config[extension] = file_type
-    with open("src/file_types.json", "w") as config_file:
+    with open("file_types.json", "w") as config_file:
         json.dump(config, config_file, indent=4)
 
 
 def add_mapping(extension: str, file_type: str):
-    with open("src/file_types.json", "r") as config_file:
+    with open("file_types.json", "r") as config_file:
         config = json.load(config_file)
     if extension in config:
         raise KeyError(f"{extension} is already a mapped file extension")
     config[extension] = file_type
-    with open("src/file_types.json", "w") as config_file:
+    with open("file_types.json", "w") as config_file:
         json.dump(config, config_file, indent=4)
 
 
 def delete_mapping(extension_to_delete: str):
-    with open("src/file_types.json", "r") as config_file:
+    with open("file_types.json", "r") as config_file:
         config = json.load(config_file)
     new_config = {
         extension: file_type
         for extension, file_type in config.items()
         if extension != extension_to_delete
     }
-    with open("src/file_types.json", "w") as config_file:
+    with open("file_types.json", "w") as config_file:
         json.dump(new_config, config_file, indent=4)
 
 
 def print_current_config():
     print("##### current config: #####")
-    with open("src/file_types.json", "r") as config_file:
+    with open("file_types.json", "r") as config_file:
         config = json.load(config_file)
     for extension, file_type in config.items():
         print(f"{extension} -> {file_type}")

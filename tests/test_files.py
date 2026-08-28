@@ -5,9 +5,12 @@ from src import files
 
 def test_list_files_in_directory(tmpdir):
     directory_path = tmpdir
-    tmpdir.mkdir("file1.txt")
-    tmpdir.mkdir("file2.txt")
-    tmpdir.mkdir("file3.mp3")
+    file1 = tmpdir / "file1.txt"
+    file1.write_text("data", encoding="utf-8")
+    file2 = tmpdir / "file2.txt"
+    file2.write_text("data", encoding="utf-8")
+    file3 = tmpdir / "file3.mp3"
+    file3.write_text("data", encoding="utf-8")
     correct_list = [
         "file1.txt",
         "file2.txt",
@@ -32,9 +35,7 @@ def test_list_files_in_directory_has_dirs(tmp_path):
     sub_dir = tmp_path / "directory"
     sub_dir.mkdir()
     correct_list = ["file1.txt", "file2.mp3"]
-    assert set(correct_list) == set(
-        files.list_files_in_directory(directory=str(tmp_path))
-    )
+    assert set(correct_list) == set(files.list_files_in_directory(directory=tmp_path))
 
 
 def test_list_directories_in_directory(tmp_path):
@@ -46,21 +47,19 @@ def test_list_directories_in_directory(tmp_path):
     file1.write_text("data")
     correct_list = ["directory", "directory2"]
     assert set(correct_list) == set(
-        files.list_directories_in_directory(directory=str(tmp_path))
+        files.list_directories_in_directory(directory=tmp_path)
     )
 
 
 def test_list_directories_in_directory_no_dirs(tmp_path):
     file1 = tmp_path / "file1.txt"
     file1.write_text("data")
-    assert set() == set(files.list_directories_in_directory(directory=str(tmp_path)))
+    assert set() == set(files.list_directories_in_directory(directory=tmp_path))
 
 
 def test_create_directories_for_categories(tmp_path):
     categories = {"cat1", "cat2"}
-    files.create_directories_for_categories(
-        categories=categories, directory=str(tmp_path)
-    )
+    files.create_directories_for_categories(categories=categories, directory=tmp_path)
     assert tmp_path.joinpath("cat1").exists() and tmp_path.joinpath("cat2").exists()
 
 
