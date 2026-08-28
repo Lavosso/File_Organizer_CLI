@@ -9,19 +9,20 @@ git clone https://github.com/Lavosso/File_Organizer_CLI.git
 cd File_Organizer_CLI
 python3.14 -m venv .venv
 .venv\Scripts\Activate.ps1 
-pip install -r requirements.txt
+pip install -r requirements.txt 
+pip install -e .
 ```
 
 ## Launching and features
 
 #### Launching
-1. `python src/cli.py suggest -d (directory) --category (extensions/types)`
+1. `file-organizer suggest -d (directory) --category (extensions/types)`
    - prints suggested organizing plan for the directory
-2. `python src/cli.py organize -d (directory) --category (extensions/types)`
+2. `file-organizer organize -d (directory) --category (extensions/types)`
    - prints suggested organizing plan for the directory
    - **asks for confirmation** to execute the plan
    - y/n : **executes** the plan / **terminates** without making changes
-3. `python src/cli.py configure`
+3. `file-organizer configure`
    - opens a cli for configuring the "extension → file type" mapping.
    - possibility to **delete / add / edit a mapping**.
    - mapping is **saved in file_types.json file** - permanence of editing.
