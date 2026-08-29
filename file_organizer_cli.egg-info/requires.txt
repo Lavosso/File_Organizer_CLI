@@ -1,6 +1,0 @@
-Markdown<4,>=3.10
-
-[dev]
-pytest<10,>=9
-ruff<0.17,>=0.16
-mypy<3,>=2.3
