@@ -1,6 +1,7 @@
 # File Organizer CLI
 Python file organizer - organize messy folders through grouping by date, extension or file type.
 
+Version 1.0 — completed as a Python project-learning milestone.
 ## Installation
 
 ```commandline
